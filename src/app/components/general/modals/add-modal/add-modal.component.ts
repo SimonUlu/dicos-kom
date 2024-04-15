@@ -3,6 +3,7 @@ import { Customer } from '../../../../helpers/Customer';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators  } from '@angular/forms';
 import { CrudService } from '../../../../services/crud.service';
 import { CommonModule } from '@angular/common';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-add-modal',
@@ -47,8 +48,9 @@ export class AddModalComponent {
   ];
 
   constructor(private fb: FormBuilder, private firebaseService: CrudService){
+    const generatedId = uuidv4(); 
     this.customerForm = this.fb.group({
-      id: ['', Validators.required],
+      id: [{value: generatedId, disabled: true}, Validators.required],
       customer_since: ['', Validators.required],
       category: ['', Validators.required],
       kunde: ['', Validators.required],
@@ -64,7 +66,9 @@ export class AddModalComponent {
 
   submitorm() {
     if (this.customerForm?.valid) {
-      this.firebaseService.createNewCustomer();
+
+      const customerData: Customer = this.customerForm.value;
+      this.firebaseService.createNewCustomer(customerData);
       this.closeModal();
     }
   }

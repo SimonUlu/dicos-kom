@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StandardListComponent } from '../../components/general/lists/standard-list/standard-list.component';
 import { CrudService } from '../../services/crud.service';
 import { Customer } from '../../helpers/Customer';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -10,8 +11,9 @@ import { Customer } from '../../helpers/Customer';
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
 
+  private subscription: Subscription = new Subscription();
   customerList: Customer[] = [];
 
   customerListHeader = ["Kundenname", "Kategorie", "Ort", "Postleitzahl", "Kunde seit"];
@@ -19,10 +21,14 @@ export class ListComponent implements OnInit {
   constructor(private firebaseService: CrudService) {}
 
   async ngOnInit() {
-    let customers = await this.firebaseService.getAllCustomers();
-    console.log(customers);
+    this.firebaseService.loadCustomers();
+    this.subscription.add(this.firebaseService.customerList$.subscribe(customers => {
+      this.customerList = customers;
+    }));
+  }
 
-    this.customerList = customers;
+  ngOnDestroy(): void {
+      this.subscription.unsubscribe();
   }
 
 }
