@@ -1,0 +1,100 @@
+<div class="card" style="background-color: gainsboro; margin-top: 40px; margin-bottom: 40px; padding: 40px;">
+
+    <div class="content is-flex-direction-column is-align-items-center is-flex" *ngIf="isRegister">
+        <h3 class="title is-3">Create Account</h3>
+    
+        <button class="button is-light" (click)="changeType('login')">
+          Returning user?
+        </button>
+    </div>
+
+    <div class="content is-flex-direction-column is-align-items-center is-flex" *ngIf="isLogin">
+        <h3 class="title is-3">Sign In</h3>
+        <button class="button is-light" (click)="changeType('signUp')">
+          New user?
+        </button>
+    </div>
+    
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="box" style="background-color: gainsboro; width: 100%; max-width: 350px;">
+
+        <div class="field">
+            <p class="control has-icons-left has-icons-right">
+                <input
+                    class="input"
+                    formControlName="email"
+                    type="email"
+                    placeholder="email@mail.com"
+                    autocomplete="on">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+            </p>
+            <p class="help is-danger" *ngIf="email?.invalid && email?.dirty">
+                You must enter a valid email
+            </p>
+        </div>
+
+        <div class="field">
+            <p class="control has-icons-left">
+                <input
+                    class="input"
+                    formControlName="password"
+                    type="password"
+                    placeholder="Your password"
+                    autocomplete="off" />
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+            </p>
+            <p class="help is-danger" *ngIf="password?.invalid && password?.dirty"> 
+                Password must be at least 6 characters
+            </p>
+        </div>
+
+        <div class="field" *ngIf="isRegister">
+            <p class="control has-icons-left">
+                <input
+                    class="input"
+                    formControlName="passwordConfirm"
+                    type="password"
+                    placeholder="Confirm password"
+                    autocomplete="off"
+                />
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+            </p>
+        </div>
+
+        <p class="help is-danger" *ngIf="!passwordDoesMatch">Passwords must match</p>
+
+        <p class="help is-danger">{{ serverMessage }}</p>
+
+        <button
+            *ngIf="isPasswordReset"
+            class="button is-light"
+            type="submit"
+            [disabled]="loading">
+            Send Reset Email
+        </button>
+
+        <button
+            *ngIf="!isPasswordReset"
+            class="button is-primary"
+            type="submit"
+            [disabled]="form.invalid || !passwordDoesMatch || loading">
+                Submit
+        </button>
+
+    </form>
+    <div class="is-align-items-center is-flex is-justify-content-center">
+        <button
+            class="button is-text"
+            *ngIf="isLogin && !isPasswordReset"
+            (click)="changeType('reset')"
+        >
+            Forgot password?
+        </button>
+    </div>
+
+</div>
