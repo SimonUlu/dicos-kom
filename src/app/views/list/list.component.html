@@ -1,1 +1,11 @@
-<p>list works!</p>
+<div class="content px-6 py-4 mb-6 mt-6">
+    <p class="title is-1">Kundentabelle</p>
+    <p class="subtitle is-3">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.  </p>
+</div>
+
+<div class="content px-6 py-4 is-flex-desktop is-justify-content-center">
+    <app-standard-list 
+        [listItems]="customerList"
+        [listHeaderItems]="customerListHeader"
+    ></app-standard-list>
+</div>

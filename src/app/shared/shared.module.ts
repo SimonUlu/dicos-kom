@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const modules = [
   MatButtonModule,
@@ -28,7 +29,8 @@ const modules = [
   MatInputModule,
   MatSnackBarModule,
   RouterModule,
-  CommonModule
+  CommonModule,
+  FontAwesomeModule
 ]
 
 

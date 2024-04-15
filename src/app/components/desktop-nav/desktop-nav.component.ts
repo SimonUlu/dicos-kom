@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
         <a class="button mr-2" *ngFor="let item of navigation" mat-button [routerLink]="item.link">{{item.text}}</a>
 
         <a class="button mr-2" *ngIf="!userIsAuthenticated" mat-button routerLink="/views/login">🔑 Login</a>
-        <a *ngIf="userIsAuthenticated" mat-button routerLink="/logout">🔑 Logout</a>
+        <a class="button mr-2" *ngIf="userIsAuthenticated" mat-button routerLink="/views/login">🔑 Logout</a>
     </div>
   `,
   styles: ``

@@ -10,7 +10,7 @@
       <mat-nav-list class="mt-6">
        <ul class="menu-list">
             <li *ngFor="let item of navigation">
-                <a routerLink="item.link" (click)="drawer.close()">
+                <a [routerLink]="item.link" (click)="drawer.close()">
                     {{item.text}}
                 </a>
             </li>

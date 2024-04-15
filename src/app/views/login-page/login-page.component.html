@@ -3,7 +3,7 @@
       <mat-icon>login</mat-icon> Sign in with Google
     </button>
   
-    <app-email-login></app-email-login>
+    <app-email-login *ngIf="!userIsAuthenticated"></app-email-login>
   
     <button *ngIf="userIsAuthenticated" mat-raised-button color="primary" (click)="signOut()">
       <mat-icon>logout</mat-icon> Log out
