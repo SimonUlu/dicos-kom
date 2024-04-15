@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SharedModule } from '../../../../shared/shared.module';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AddModalComponent } from '../../modals/add-modal/add-modal.component';
+import { CrudService } from '../../../../services/crud.service';
 
 @Component({
   selector: 'app-standard-list',
@@ -27,7 +28,7 @@ import { AddModalComponent } from '../../modals/add-modal/add-modal.component';
           <tr>
             <th class="is-hidden-mobile"></th>
             <th *ngFor="let item of listHeaderItems">{{item}}</th>
-
+            <th>Aktion</th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +39,13 @@ import { AddModalComponent } from '../../modals/add-modal/add-modal.component';
             <td>{{item.city}}</td>
             <td>{{item.zip_code}}</td>
             <td>{{item.customer_since}}</td>
+            <td>
+              <button class="button is-rounded-full">
+                <span class="icon has-text-danger" (click)="deleteCustomer(item.id)">
+                  <fa-icon [icon]="faTimes"></fa-icon>
+                </span>
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -52,8 +60,17 @@ export class StandardListComponent {
 
   @Output() reloadComponentEmitter = new EventEmitter<void>();
 
+  constructor(private firebaseService: CrudService) {}
+
   modalOpened = false;
   faPlus = faPlus;
+  faTimes = faTimes;
+
+  deleteCustomer(id: string) {
+    this.firebaseService.deleteCustomer(id);
+    this.reloadComponent();
+
+  }
 
 
   toggleModal() {
@@ -62,7 +79,6 @@ export class StandardListComponent {
   }
 
   reloadComponent() {
-    console.log("emiited");
     this.reloadComponentEmitter.emit();
   }
 }
