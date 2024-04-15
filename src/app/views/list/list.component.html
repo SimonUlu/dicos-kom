@@ -7,5 +7,6 @@
     <app-standard-list 
         [listItems]="customerList"
         [listHeaderItems]="customerListHeader"
+        (reloadComponentEmitter)="reloadCustomers()"
     ></app-standard-list>
 </div>

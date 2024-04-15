@@ -36,6 +36,8 @@ export class AddModalComponent {
   @Input() headline: string = "";
   @Input() subHeadline: string = "";
   @Output() closeModalEvent = new EventEmitter<void>();
+  @Output() addNewCustomer = new EventEmitter<void>();
+
 
   customerForm: FormGroup;
   customerFields = [
@@ -71,6 +73,8 @@ export class AddModalComponent {
       this.firebaseService.createNewCustomer(customerData);
       this.closeModal();
     }
+
+    this.addNewCustomer.emit();
   }
 
 }

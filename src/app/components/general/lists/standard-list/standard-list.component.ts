@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SharedModule } from '../../../../shared/shared.module';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AddModalComponent } from '../../modals/add-modal/add-modal.component';
@@ -13,6 +13,7 @@ import { AddModalComponent } from '../../modals/add-modal/add-modal.component';
       <app-add-modal 
         [isOpen]="modalOpened" 
         (closeModalEvent)="toggleModal()"
+        (addNewCustomer)="reloadComponent()"
         headline="Kunden"
         subHeadline="Neuen Kunden hinzufügen"
       ></app-add-modal>
@@ -49,6 +50,8 @@ export class StandardListComponent {
   @Input() listItems: any[] = [];
   @Input() listHeaderItems: any[] = [];
 
+  @Output() reloadComponentEmitter = new EventEmitter<void>();
+
   modalOpened = false;
   faPlus = faPlus;
 
@@ -56,5 +59,10 @@ export class StandardListComponent {
   toggleModal() {
     this.modalOpened = !this.modalOpened;
     console.log(this.modalOpened);
+  }
+
+  reloadComponent() {
+    console.log("emiited");
+    this.reloadComponentEmitter.emit();
   }
 }

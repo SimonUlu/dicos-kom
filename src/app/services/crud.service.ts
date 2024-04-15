@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, getDocs, addDoc } from '@angular/fire/firestore';
+import { Firestore, collection, getDocs, addDoc, doc, deleteDoc } from '@angular/fire/firestore';
 import { Customer } from '../helpers/Customer';
 import { BehaviorSubject } from 'rxjs';
 
@@ -31,6 +31,19 @@ export class CrudService {
       await addDoc(customerCollection, customer)
     } catch (error) {
       console.error("Error adding document: ", error);
+    }
+
+  }
+
+  async deleteCustomer(id: string) {
+    console.log(id);
+
+    const customer = doc(this.firebaseService, "customers", id);
+
+    try {
+      await deleteDoc(customer)
+    } catch(error) {
+      console.log(error);
     }
 
   }

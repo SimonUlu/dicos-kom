@@ -27,6 +27,14 @@ export class ListComponent implements OnInit, OnDestroy {
     }));
   }
 
+  async reloadCustomers() {
+    this.firebaseService.loadCustomers();
+    this.subscription.add(this.firebaseService.customerList$.subscribe(customers => {
+      this.customerList = customers;
+    }));
+    console.log("reloaded");
+  }
+
   ngOnDestroy(): void {
       this.subscription.unsubscribe();
   }
