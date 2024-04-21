@@ -75,6 +75,23 @@ export class AddModalComponent {
     }
 
     this.addNewCustomer.emit();
+    this.resetForm();
+  }
+
+  private resetForm() {
+    const newId = uuidv4();
+
+    this.customerForm.reset({
+      id: newId,
+      customer_since: "",
+      category: "",
+      kunde: "",
+      city: "",
+      zip_code: "",
+    });
+
+    this.customerForm.get('id')?.setValue(newId);
+
   }
 
 }
