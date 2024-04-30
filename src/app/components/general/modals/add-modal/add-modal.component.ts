@@ -75,7 +75,7 @@ export class AddModalComponent {
     }
 
     this.addNewCustomer.emit();
-    this.resetForm();
+    this.resetForm(); // new comment
   }
 
   private resetForm() {
